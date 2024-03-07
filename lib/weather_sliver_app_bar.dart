@@ -1,20 +1,20 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:weather/server.dart';
+
+const String baseAssetURL =
+    'https://dartpad-workshops-io2021.web.app/getting_started_with_slivers/';
+const String headerImage = '${baseAssetURL}assets/header.jpeg';
 
 class WeatherSliverAppBar extends StatelessWidget {
-  const WeatherSliverAppBar({
-    super.key,
-  });
+  final AsyncCallback onRefresh;
+  const WeatherSliverAppBar({super.key, required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
       stretch: true,
-      onStretchTrigger: () async {
-        print('Load new data!');
-        // await Server.requestNewData();
-      },
+      onStretchTrigger: onRefresh,
       backgroundColor: Colors.teal[800],
       expandedHeight: 200.0,
       flexibleSpace: FlexibleSpaceBar(

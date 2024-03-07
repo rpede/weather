@@ -139,55 +139,55 @@ class DailyUnits {
 // 95 * 	Thunderstorm: Slight or moderate
 // 96, 99 * 	Thunderstorm with slight and heavy hail
 enum WeatherCode {
-  clearSky(0, 'Clear sky', 'skc'),
+  clearSky(0, 'Clear sky', "wi-day-sunny"),
 
-  mainlyClear(1, 'Mainly clear', 'few'),
-  partlyCloudy(2, 'Partly cloudy', 'sct'),
-  overcast(3, 'Overcast', 'ovc'),
+  mainlyClear(1, 'Mainly clear', 'wi-day-sunny-overcast'),
+  partlyCloudy(2, 'Partly cloudy', 'wi-day-sunny-overcast'),
+  overcast(3, 'Overcast', 'wi-day-cloudy'),
 
-  fog(45, 'Fog', 'fg'),
-  depositingRimeFog(48, 'Depositing rime fog', 'fg'),
+  fog(45, 'Fog', 'wi-day-fog'),
+  depositingRimeFog(48, 'Depositing rime fog', 'wi-day-fog'),
 
-  drizzleLight(51, 'Drizzle: Light intensity', 'minus_ra'),
-  drizzleModerate(53, 'Drizzle: Moderate intensity', 'minus_ra'),
-  drizzleDense(55, 'Drizzle: Dense intensity', 'minus_ra'),
+  drizzleLight(51, 'Drizzle: Light intensity', 'wi-day-sprinkle'),
+  drizzleModerate(53, 'Drizzle: Moderate intensity', 'wi-day-sprinkle'),
+  drizzleDense(55, 'Drizzle: Dense intensity', 'wi-day-rain-mix'),
 
-  freezingDrizzleLight(56, 'Freezing Drizzle: Light intensity', 'fzra'),
-  freezingDrizzleDense(57, 'Freezing Drizzle: dense intensity', 'fzra'),
+  freezingDrizzleLight(
+      56, 'Freezing Drizzle: Light intensity', 'wi-day-sprinkle'),
+  freezingDrizzleDense(
+      57, 'Freezing Drizzle: dense intensity', 'wi-day-rain-mix'),
 
-  rainSlight(61, 'Rain: Slight intensity', 'minus_ra'),
-  rainModerate(63, 'Rain: Moderate intensity', 'ra'),
-  rainHeavy(65, 'Rain: Heavy intensity', 'ra'),
+  rainSlight(61, 'Rain: Slight intensity', 'wi-day-rain-mix'),
+  rainModerate(63, 'Rain: Moderate intensity', 'wi-day-rain'),
+  rainHeavy(65, 'Rain: Heavy intensity', 'wi-day-showers'),
 
-  freezingRainLight(66, 'Freezing Rain: Light intensity', 'ra_fzra'),
-  freezingRainHeavy(66, 'Freezing Rain: Heavy intensity', 'ra_fzra'),
+  freezingRainLight(66, 'Freezing Rain: Light intensity', 'wi-sleet'),
+  freezingRainHeavy(67, 'Freezing Rain: Heavy intensity', 'wi-sleet'),
 
-  snowFallSlight(71, 'Snow fall: Slight intensity', 'sn'),
-  snowFallModerate(73, 'Snow fall: Moderate intensity', 'sn'),
-  snowFallHeavy(75, 'Snow fall: Heavy intensity', 'blizzard'),
+  snowFallSlight(71, 'Snow fall: Slight intensity', 'wi-day-snow'),
+  snowFallModerate(73, 'Snow fall: Moderate intensity', 'wi-day-snow'),
+  snowFallHeavy(75, 'Snow fall: Heavy intensity', 'wi-day-snow'),
 
-  snowGrains(77, 'Snow grains', 'snip'),
+  snowGrains(77, 'Snow grains', 'wi-day-hail'),
 
-  rainShowersSlight(80, 'Rain showers: Slight', 'shra'),
-  rainShowersModerate(81, 'Rain showers: Moderate', 'shra'),
-  rainShowersVoilent(82, 'Rain showers: Violent', 'shra'),
+  rainShowersSlight(80, 'Rain showers: Slight', 'wi-day-showers'),
+  rainShowersModerate(81, 'Rain showers: Moderate', 'wi-day-showers'),
+  rainShowersVoilent(82, 'Rain showers: Violent', 'wi-day-showers'),
 
-  snowShowersSlight(85, 'Snow showers: Slight', 'ip'),
-  snowShowersHeavy(86, 'Snow showers: Heavy', 'raip'),
+  snowShowersSlight(85, 'Snow showers: Slight', 'wi-day-snow'),
+  snowShowersHeavy(86, 'Snow showers: Heavy', 'wi-day-snow'),
 
-  thunerstorm(95, 'Thunderstorm: Slight or moderate', 'scttsra'),
-  thunderstormSlightHail(96, 'Thunderstorm with slight hail', 'tsra'),
-  thunderstormHeavyHail(99, 'Thunderstorm with heavy hail', 'tsra'),
+  thunerstorm(95, 'Thunderstorm: Slight or moderate', 'wi-day-thunderstorm'),
+  thunderstormSlightHail(
+      96, 'Thunderstorm with slight hail', 'wi-day-thunderstorm'),
+  thunderstormHeavyHail(
+      99, 'Thunderstorm with heavy hail', 'wi-day-thunderstorm'),
   ;
 
   final int value;
   final String description;
   final String icon;
   const WeatherCode(this.value, this.description, this.icon);
-
-  get imageAsset {
-    return 'assets/$icon.png';
-  }
 
   factory WeatherCode.fromInt(int value) {
     return WeatherCode.values.singleWhere((code) => code.value == value);

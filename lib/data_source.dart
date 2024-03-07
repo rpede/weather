@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:weather/models.dart';
 import 'package:http/http.dart' as http;
+
+import 'models.dart';
 
 abstract class DataSource {
   Future<WeeklyForecastDto> getWeeklyForecast();
