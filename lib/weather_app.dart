@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather/weather_sliver_app_bar.dart';
-import 'package:weather/weekly_Forecast_list.dart';
-import 'package:weather/weekly_forecast_screen.dart';
+
+import 'weekly_forecast_screen.dart';
 
 class WeatherApp extends StatelessWidget {
   const WeatherApp({super.key});
@@ -21,7 +20,7 @@ class WeatherApp extends StatelessWidget {
       // platform they are using.
       scrollBehavior: const ConstantScrollBehavior(),
       title: 'Horizons Weather',
-      home: WeeklyForecastScreen(),
+      home: const WeeklyForecastScreen(),
     );
   }
 }

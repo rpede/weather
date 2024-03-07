@@ -1,22 +1,43 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather/data_source.dart';
-import 'package:weather/models.dart';
-import 'package:weather/weekly_Forecast_list.dart';
 
+import 'data_source.dart';
+import 'models.dart';
+import 'weekly_forecast_list.dart';
 import 'weather_sliver_app_bar.dart';
 
-class WeeklyForecastScreen extends StatelessWidget {
+class WeeklyForecastScreen extends StatefulWidget {
   const WeeklyForecastScreen({super.key});
+
+  @override
+  State<WeeklyForecastScreen> createState() => _WeeklyForecastScreenState();
+}
+
+class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
+  final controller = StreamController<WeeklyForecastDto>();
+
+  @override
+  void initState() {
+    super.initState();
+    loadForecast();
+  }
+
+  Future<void> loadForecast() async {
+    final future = context.read<DataSource>().getWeeklyForecast();
+    controller.addStream(future.asStream());
+    await future;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: context.read<DataSource>().getWeeklyForecast(),
+      body: StreamBuilder(
+        stream: controller.stream,
         builder: (context, snapshot) => CustomScrollView(
           slivers: <Widget>[
-            WeatherSliverAppBar(),
+            WeatherSliverAppBar(onRefresh: loadForecast),
             if (snapshot.hasData)
               WeeklyForecastList(weeklyForecast: snapshot.data!)
             else if (snapshot.hasError)
@@ -29,8 +50,8 @@ class WeeklyForecastScreen extends StatelessWidget {
     );
   }
 
-  SliverFillRemaining _buildSpinner() {
-    return SliverFillRemaining(
+  Widget _buildSpinner() {
+    return const SliverFillRemaining(
       hasScrollBody: false,
       child: Center(
         child: CircularProgressIndicator.adaptive(),
@@ -38,11 +59,11 @@ class WeeklyForecastScreen extends StatelessWidget {
     );
   }
 
-  SliverToBoxAdapter _buildError(
+  Widget _buildError(
       AsyncSnapshot<WeeklyForecastDto> snapshot, BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Text(
           snapshot.error.toString(),
           style: TextStyle(color: Theme.of(context).colorScheme.error),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather/data_source.dart';
-import 'package:weather/weather_app.dart';
+
+import 'data_source.dart';
+import 'weather_app.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
-      Provider<DataSource>(create: (context) => RealDataSource()),
+      Provider<DataSource>(create: (context) => FakeDataSource()),
     ],
-    child: WeatherApp(),
+    child: const WeatherApp(),
   ));
 }
