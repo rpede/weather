@@ -1,21 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-const String baseAssetURL =
-    'https://dartpad-workshops-io2021.web.app/getting_started_with_slivers/';
-const String headerImage = '${baseAssetURL}assets/header.jpeg';
-
 class WeatherSliverAppBar extends StatelessWidget {
-  final AsyncCallback onRefresh;
-  const WeatherSliverAppBar({super.key, required this.onRefresh});
+  final AsyncCallback? onRefresh;
+
+  const WeatherSliverAppBar({
+    super.key,
+    this.onRefresh,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final color = Colors.green[900];
     return SliverAppBar(
       pinned: true,
       stretch: true,
       onStretchTrigger: onRefresh,
-      backgroundColor: Colors.teal[800],
+      backgroundColor: color,
       expandedHeight: 200.0,
       flexibleSpace: FlexibleSpaceBar(
         stretchModes: const [
@@ -23,18 +24,18 @@ class WeatherSliverAppBar extends StatelessWidget {
           StretchMode.fadeTitle,
           StretchMode.blurBackground,
         ],
-        title: const Text('Horizons'),
+        title: const Text('Weather'),
         background: DecoratedBox(
           position: DecorationPosition.foreground,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.center,
-              colors: <Color>[Colors.teal[800]!, Colors.transparent],
+              colors: <Color>[color!, Colors.transparent],
             ),
           ),
-          child: Image.network(
-            headerImage,
+          child: Image.asset(
+            "assets/background.jpg",
             fit: BoxFit.cover,
           ),
         ),

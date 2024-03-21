@@ -1,3 +1,102 @@
+
+class HistoricWeatherDto {
+    double? latitude;
+    double? longitude;
+    double? generationtimeMs;
+    int? utcOffsetSeconds;
+    String? timezone;
+    String? timezoneAbbreviation;
+    int? elevation;
+    HistoricDailyUnits? dailyUnits;
+    HistoricDaily? daily;
+
+    HistoricWeatherDto({this.latitude, this.longitude, this.generationtimeMs, this.utcOffsetSeconds, this.timezone, this.timezoneAbbreviation, this.elevation, this.dailyUnits, this.daily});
+
+    HistoricWeatherDto.fromJson(Map<String, dynamic> json) {
+        latitude = (json["latitude"] as num).toDouble();
+        longitude = (json["longitude"] as num).toDouble();
+        generationtimeMs = (json["generationtime_ms"] as num).toDouble();
+        utcOffsetSeconds = (json["utc_offset_seconds"] as num).toInt();
+        timezone = json["timezone"];
+        timezoneAbbreviation = json["timezone_abbreviation"];
+        elevation = (json["elevation"] as num).toInt();
+        dailyUnits = json["daily_units"] == null ? null : HistoricDailyUnits.fromJson(json["daily_units"]);
+        daily = json["daily"] == null ? null : HistoricDaily.fromJson(json["daily"]);
+    }
+
+    static List<HistoricWeatherDto> fromList(List<Map<String, dynamic>> list) {
+        return list.map((map) => HistoricWeatherDto.fromJson(map)).toList();
+    }
+
+    Map<String, dynamic> toJson() {
+        final Map<String, dynamic> data = <String, dynamic>{};
+        data["latitude"] = latitude;
+        data["longitude"] = longitude;
+        data["generationtime_ms"] = generationtimeMs;
+        data["utc_offset_seconds"] = utcOffsetSeconds;
+        data["timezone"] = timezone;
+        data["timezone_abbreviation"] = timezoneAbbreviation;
+        data["elevation"] = elevation;
+        if(dailyUnits != null) {
+            data["daily_units"] = dailyUnits?.toJson();
+        }
+        if(daily != null) {
+            data["daily"] = daily?.toJson();
+        }
+        return data;
+    }
+}
+
+class HistoricDaily {
+    List<String>? time;
+    List<double>? temperature2MMean;
+
+    HistoricDaily({this.time, this.temperature2MMean});
+
+    HistoricDaily.fromJson(Map<String, dynamic> json) {
+        time = json["time"] == null ? null : List<String>.from(json["time"]);
+        temperature2MMean = json["temperature_2m_mean"] == null ? null : List<double>.from(json["temperature_2m_mean"]);
+    }
+
+    static List<HistoricDaily> fromList(List<Map<String, dynamic>> list) {
+        return list.map((map) => HistoricDaily.fromJson(map)).toList();
+    }
+
+    Map<String, dynamic> toJson() {
+        final Map<String, dynamic> data = <String, dynamic>{};
+        if(time != null) {
+            data["time"] = time;
+        }
+        if(temperature2MMean != null) {
+            data["temperature_2m_mean"] = temperature2MMean;
+        }
+        return data;
+    }
+}
+
+class HistoricDailyUnits {
+    String? time;
+    String? temperature2MMean;
+
+    HistoricDailyUnits({this.time, this.temperature2MMean});
+
+    HistoricDailyUnits.fromJson(Map<String, dynamic> json) {
+        time = json["time"];
+        temperature2MMean = json["temperature_2m_mean"];
+    }
+
+    static List<HistoricDailyUnits> fromList(List<Map<String, dynamic>> list) {
+        return list.map((map) => HistoricDailyUnits.fromJson(map)).toList();
+    }
+
+    Map<String, dynamic> toJson() {
+        final Map<String, dynamic> data = <String, dynamic>{};
+        data["time"] = time;
+        data["temperature_2m_mean"] = temperature2MMean;
+        return data;
+    }
+}
+
 class WeeklyForecastDto {
   double? latitude;
   double? longitude;
@@ -35,21 +134,21 @@ class WeeklyForecastDto {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["latitude"] = latitude;
-    _data["longitude"] = longitude;
-    _data["generationtime_ms"] = generationtimeMs;
-    _data["utc_offset_seconds"] = utcOffsetSeconds;
-    _data["timezone"] = timezone;
-    _data["timezone_abbreviation"] = timezoneAbbreviation;
-    _data["elevation"] = elevation;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["latitude"] = latitude;
+    data["longitude"] = longitude;
+    data["generationtime_ms"] = generationtimeMs;
+    data["utc_offset_seconds"] = utcOffsetSeconds;
+    data["timezone"] = timezone;
+    data["timezone_abbreviation"] = timezoneAbbreviation;
+    data["elevation"] = elevation;
     if (dailyUnits != null) {
-      _data["daily_units"] = dailyUnits?.toJson();
+      data["daily_units"] = dailyUnits?.toJson();
     }
     if (daily != null) {
-      _data["daily"] = daily?.toJson();
+      data["daily"] = daily?.toJson();
     }
-    return _data;
+    return data;
   }
 }
 
@@ -79,20 +178,20 @@ class Daily {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (time != null) {
-      _data["time"] = time;
+      data["time"] = time;
     }
     if (weatherCode != null) {
-      _data["weather_code"] = weatherCode;
+      data["weather_code"] = weatherCode;
     }
     if (temperature2MMax != null) {
-      _data["temperature_2m_max"] = temperature2MMax;
+      data["temperature_2m_max"] = temperature2MMax;
     }
     if (temperature2MMin != null) {
-      _data["temperature_2m_min"] = temperature2MMin;
+      data["temperature_2m_min"] = temperature2MMin;
     }
-    return _data;
+    return data;
   }
 }
 
@@ -116,12 +215,12 @@ class DailyUnits {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["time"] = time;
-    _data["weather_code"] = weatherCode;
-    _data["temperature_2m_max"] = temperature2MMax;
-    _data["temperature_2m_min"] = temperature2MMin;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["time"] = time;
+    data["weather_code"] = weatherCode;
+    data["temperature_2m_max"] = temperature2MMax;
+    data["temperature_2m_min"] = temperature2MMin;
+    return data;
   }
 }
 

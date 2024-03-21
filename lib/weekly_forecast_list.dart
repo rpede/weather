@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';
 
-import 'models.dart';
+import 'models/forecast.dart';
 
 class WeeklyForecastList extends StatelessWidget {
   final WeeklyForecastDto weeklyForecast;
@@ -40,13 +40,12 @@ class WeeklyForecastList extends StatelessWidget {
                           ),
                         ),
                         child: BoxedIcon(
-                          WeatherIcons.fromString(weatherCode.icon,
-                              fallback: WeatherIcons.na),
+                          WeatherIcons.fromString(
+                            weatherCode.icon,
+                            fallback: WeatherIcons.na,
+                          ),
                           size: 70,
                         ),
-                        // child: Image.asset(
-                        //   fit: BoxFit.cover,
-                        // ),
                       ),
                       Center(
                         child: Text(
